@@ -1,76 +1,72 @@
-# AI Engineering Showcase
+# Personal Landing Page
 
-This repository contains various AI and programming projects.
+A modern, responsive personal landing page built with HTML, CSS, and JavaScript.
 
-## Command-Line Calculator
+## Features
 
-A simple command-line calculator written in Python that performs basic arithmetic operations.
+- **Clean Navigation Bar**: Fixed navigation with smooth scrolling and mobile hamburger menu
+- **Hero Section**: Professional headline with call-to-action buttons and gradient background
+- **About Section**: Personal information with statistics and placeholder content
+- **Skills Section**: Progress bars showing technical skills and expertise
+- **Contact Section**: Contact information and social media links
+- **Footer**: Copyright information and navigation links
+- **Responsive Design**: Fully responsive across all device sizes
+- **Modern Animations**: Smooth transitions and hover effects
 
-### Features
-
-- **Basic Operations**: Addition (+), Subtraction (-), Multiplication (*), Division (/)
-- **User-Friendly Interface**: Clear menu-driven interface
-- **Input Validation**: Handles invalid input gracefully
-- **Error Handling**: Prevents division by zero and other errors
-- **Interactive**: Allows multiple calculations in one session
-
-### How to Use
-
-1. **Run the calculator**:
-   ```bash
-   python calculator.py
-   ```
-
-2. **Select an operation**:
-   - Choose from options 1-5 (1=Addition, 2=Subtraction, 3=Multiplication, 4=Division, 5=Exit)
-
-3. **Enter two numbers**:
-   - The calculator will prompt you for two numbers
-   - Supports both integers and decimals
-
-4. **View the result**:
-   - The calculation and result will be displayed
-
-5. **Continue or exit**:
-   - Choose whether to perform another calculation or exit
-
-### Example Usage
+## Files Structure
 
 ```
-========================================
-Welcome to the Command-Line Calculator!
-========================================
-
-Available operations:
-1. Addition (+)
-2. Subtraction (-)
-3. Multiplication (*)
-4. Division (/)
-5. Exit
-
-Select an operation (1-5): 1
-
-You selected: +
-Enter first number: 10
-Enter second number: 5
-
-Result: 10.0 + 5.0 = 15.0
-
-Would you like to perform another calculation? (y/n): n
-
-Thank you for using the calculator!
+├── index.html          # Main HTML structure
+├── styles.css          # Modern CSS styling with responsive design
+├── script.js           # JavaScript for interactivity
+└── README.md          # Project documentation
 ```
 
-### Error Handling
+## Customization
 
-The calculator handles various error conditions:
+### Personal Information
+1. Replace "Your Name" with your actual name throughout the HTML
+2. Update the hero subtitle to reflect your profession
+3. Modify the about section text to describe yourself
+4. Update contact information (email, phone, location)
+5. Add your actual social media links
 
-- **Invalid operation selection**: Prompts user to select a valid option
-- **Invalid number input**: Asks for a valid number
-- **Division by zero**: Shows an error message
-- **General errors**: Displays appropriate error messages
+### Skills
+1. Modify the skills in the HTML to match your expertise
+2. Adjust the percentage values in the progress bars
+3. Add or remove skill categories as needed
 
-### Requirements
+### Colors and Styling
+The design uses a modern color scheme with:
+- Primary blue: #2563eb
+- Gradient backgrounds: #667eea to #764ba2
+- Accent yellow: #fbbf24
+- Clean grays for text and backgrounds
 
-- Python 3.x
-- No additional dependencies required
+You can customize colors in the CSS file to match your personal brand.
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Getting Started
+
+1. Download or clone the files
+2. Open `index.html` in your web browser
+3. Customize the content to match your personal information
+4. Deploy to your preferred hosting service
+
+## Technologies Used
+
+- HTML5
+- CSS3 (with Flexbox and Grid)
+- Vanilla JavaScript
+- Font Awesome icons
+- Google Fonts (Inter)
+
+## License
+
+This project is open source and available under the MIT License.

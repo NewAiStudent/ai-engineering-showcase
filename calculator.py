@@ -1,90 +1,106 @@
-#!/usr/bin/env python3
-"""
-Command-line Calculator
-A simple calculator that performs basic arithmetic operations.
-"""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .habit-form {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .habit-form input {
+      padding: 10px;
+      width: 60%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-right: 10px;
+    }
+    .habit-form button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+    .habit-form button:hover {
+      background: #45a049;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    li {
+      background: white;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    }
+    li.completed {
+      text-decoration: line-through;
+      color: gray;
+      background: #e0ffe0;
+    }
+    .complete-btn {
+      background: #008CBA;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .complete-btn:hover {
+      background: #007bb5;
+    }
+  </style>
+</head>
+<body>
+  <h1>Habit Tracker</h1>
 
-def get_operation():
-    """Get the operation from user input."""
-    while True:
-        print("\nAvailable operations:")
-        print("1. Addition (+)")
-        print("2. Subtraction (-)")
-        print("3. Multiplication (*)")
-        print("4. Division (/)")
-        print("5. Exit")
-        
-        choice = input("\nSelect an operation (1-5): ").strip()
-        
-        if choice == '1':
-            return '+'
-        elif choice == '2':
-            return '-'
-        elif choice == '3':
-            return '*'
-        elif choice == '4':
-            return '/'
-        elif choice == '5':
-            return 'exit'
-        else:
-            print("Invalid choice. Please select 1-5.")
+  <div class="habit-form">
+    <input type="text" id="habitInput" placeholder="Enter a habit...">
+    <button onclick="addHabit()">Add Habit</button>
+  </div>
 
-def get_number(prompt):
-    """Get a valid number from user input."""
-    while True:
-        try:
-            return float(input(prompt))
-        except ValueError:
-            print("Invalid input. Please enter a valid number.")
+  <ul id="habitList"></ul>
 
-def calculate(num1, num2, operation):
-    """Perform the calculation based on the operation."""
-    if operation == '+':
-        return num1 + num2
-    elif operation == '-':
-        return num1 - num2
-    elif operation == '*':
-        return num1 * num2
-    elif operation == '/':
-        if num2 == 0:
-            raise ValueError("Error: Division by zero is not allowed.")
-        return num1 / num2
-    else:
-        raise ValueError("Invalid operation.")
+  <script>
+    function addHabit() {
+      const input = document.getElementById("habitInput");
+      const habitText = input.value.trim();
+      if (habitText === "") return;
 
-def main():
-    """Main calculator function."""
-    print("=" * 40)
-    print("Welcome to the Command-Line Calculator!")
-    print("=" * 40)
-    
-    while True:
-        # Get operation from user
-        operation = get_operation()
-        
-        if operation == 'exit':
-            print("\nThank you for using the calculator!")
-            break
-        
-        # Get numbers from user
-        print(f"\nYou selected: {operation}")
-        num1 = get_number("Enter first number: ")
-        num2 = get_number("Enter second number: ")
-        
-        # Perform calculation
-        try:
-            result = calculate(num1, num2, operation)
-            print(f"\nResult: {num1} {operation} {num2} = {result}")
-        except ValueError as e:
-            print(f"\n{e}")
-        except Exception as e:
-            print(f"\nAn error occurred: {e}")
-        
-        # Ask if user wants to continue
-        continue_calc = input("\nWould you like to perform another calculation? (y/n): ").strip().lower()
-        if continue_calc not in ['y', 'yes']:
-            print("\nThank you for using the calculator!")
-            break
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span>${habitText}</span>
+        <button class="complete-btn" onclick="toggleHabit(this)">Done</button>
+      `;
+      document.getElementById("habitList").appendChild(li);
+      input.value = "";
+    }
 
-if __name__ == "__main__":
-    main() 
+    function toggleHabit(button) {
+      const li = button.parentElement;
+      li.classList.toggle("completed");
+    }
+  </script>
+</body>
+</html>

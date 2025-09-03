@@ -3,74 +3,218 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Benjamin Marcano - Personal Landing Page</title>
+  <title>Habit Tracker - Build Better Habits</title>
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; line-height: 1.6; }
-    header { background: #333; color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-    nav a { color: #fff; margin: 0 1rem; text-decoration: none; }
-    nav a:hover { text-decoration: underline; }
-    .hero { background: #f4f4f4; padding: 4rem 2rem; text-align: center; }
-    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-    .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
-    .btn { background: #54b4cc; color: #fff; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 5px; }
-    .btn:hover { background: #555; }
-    section { padding: 2rem; max-width: 1000px; margin: auto; }
-    .skills .skill { margin: 1rem 0; }
-    .progress { background: #ddd; border-radius: 20px; overflow: hidden; }
-    .progress div { height: 20px; background: #333; text-align: right; padding-right: 5px; color: #fff; line-height: 20px; }
-    footer { background: #333; color: #fff; text-align: center; padding: 1rem; margin-top: 2rem; }
-    @media (max-width: 600px) {
-      header { flex-direction: column; }
-      nav a { margin: 0.5rem 0; }
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+
+    /* Navbar */
+    .navbar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+    .navbar .logo { font-size: 1.5rem; font-weight: bold; color: #4a47a3; }
+    .about-btn {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #6C63FF, #4a47a3);
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .about-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3); }
+
+    /* Container */
+    .container { max-width: 800px; margin: 100px auto 50px; background: rgba(255,255,255,0.95); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
+
+    /* Header */
+    .header { background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); color: white; padding: 30px; text-align: center; }
+    .header h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 300; }
+    .header p { font-size: 1.1rem; opacity: 0.9; }
+
+    /* Stats */
+    .stats { display: flex; justify-content: space-around; padding: 20px; background: #f8f9fa; border-bottom: 1px solid #e9ecef; }
+    .stat { text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: bold; color: #4CAF50; }
+    .stat-label { color: #666; font-size: 0.9rem; margin-top: 5px; }
+
+    /* Habit Form */
+    .habit-form { padding: 30px; background: white; }
+    .form-group { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+    .form-group input, .form-group select { flex: 1; min-width: 200px; padding: 15px; border: 2px solid #e9ecef; border-radius: 12px; font-size: 1rem; transition: border-color 0.3s ease; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: #4CAF50; box-shadow: 0 0 0 3px rgba(76,175,80,0.1); }
+    .form-group button { padding: 15px 25px; border: none; border-radius: 12px; background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); color: white; cursor: pointer; font-size: 1rem; font-weight: 600; transition: transform 0.2s ease, box-shadow 0.2s ease; min-width: 120px; }
+    .form-group button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(76,175,80,0.3); }
+    .form-group button:active { transform: translateY(0); }
+
+    /* Habits Section */
+    .habits-section { padding: 0 30px 30px; }
+    .section-title { font-size: 1.5rem; margin-bottom: 20px; color: #333; display: flex; align-items: center; gap: 10px; }
+    .habits-list { list-style: none; }
+    .habit-item { background: white; padding: 20px; margin-bottom: 15px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s ease, box-shadow 0.2s ease; border-left: 4px solid #4CAF50; }
+    .habit-item.completed { background: #e8f5e8; border-left-color: #2e7d32; }
+    .habit-item.completed .habit-text { text-decoration: line-through; color: #666; }
+
+    .habit-content { display: flex; align-items: center; gap: 15px; flex: 1; }
+    .habit-text { font-size: 1.1rem; font-weight: 500; color: #333; }
+    .habit-category { background: #e3f2fd; color: #1976d2; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+    .habit-streak { background: #fff3e0; color: #f57c00; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-left: 10px; }
+
+    .habit-actions { display: flex; gap: 10px; align-items: center; }
+    .complete-btn { background: linear-gradient(135deg, #008CBA 0%, #007bb5 100%); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+    .complete-btn.completed { background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); }
+    .delete-btn { background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%); color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+
+    /* Empty State */
+    .empty-state { text-align: center; padding: 60px 20px; color: #666; display: none; }
+    .empty-state img { width: 100px; height: 100px; opacity: 0.5; margin-bottom: 20px; }
+    .empty-state h3 { font-size: 1.5rem; margin-bottom: 10px; color: #333; }
+    .empty-state p { font-size: 1.1rem; line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      .container { margin: 80px 10px 50px; border-radius: 15px; }
+      .stats { flex-direction: column; gap: 15px; }
+      .form-group { flex-direction: column; }
+      .habit-item { flex-direction: column; align-items: flex-start; gap: 15px; }
+      .habit-actions { width: 100%; justify-content: flex-end; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">Benjamin Marcano</div>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+  <div class="navbar">
+    <div class="logo">Habit Tracker</div>
+    <a href="aboutme.html" class="about-btn">About Me / Contact</a>
+  </div>
 
-  <section class="hero">
-    <img src="file:///C:/Users/Xavier/Downloads/WhatsApp%20Image%202025-08-18%20at%2012.48.06%20PM.jpeg" alt="Benjamin Marcano" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; margin-bottom: 2rem; border: 4px solid #54b4cc;">
-    <h1>Student</h1>
-    <p>I am a passionate learner interested in technology and innovation.</p>
-    <a href="#contact" class="btn">Get in Touch</a>
-  </section>
-
-  <section id="about">
-    <h2>About Me</h2>
-    <p>I am fifteen and studying for technology. I enjoy learning about new tools, programming, and problem-solving. My goal is to grow my skills and work on exciting tech projects in the future.</p>
-    
-    <p>As an amateur web designer, I create modern, user-friendly, and visually appealing websites. My work combines creativity and functionality, ensuring each design delivers an engaging user experience. I design responsive layouts and intuitive interfaces that meet both client and audience needs. With attention to detail and a focus on innovation, I turn concepts into professional digital experiences.</p>
-  </section>
-
-  <section id="skills" class="skills">
-    <h2>Skills</h2>
-    <div class="skill">
-      <p>Mathematics</p>
-      <div class="progress"><div style="width: 65%">65%</div></div>
+  <div class="container">
+    <div class="header">
+      <h1>🎯 Habit Tracker</h1>
+      <p>Build better habits, one day at a time</p>
     </div>
-    <div class="skill">
-      <p>Information Technology</p>
-      <div class="progress"><div style="width: 35%">35%</div></div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number" id="totalHabits">0</div>
+        <div class="stat-label">Total Habits</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="completedToday">0</div>
+        <div class="stat-label">Completed Today</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="currentStreak">0</div>
+        <div class="stat-label">Best Streak</div>
+      </div>
     </div>
-  </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Connect with me on social media:</p>
-    <p>
-      <a href="https://x.com/BenjaminMa87535" target="_blank">Twitter/X</a>
-    </p>
-  </section>
+    <div class="habit-form">
+      <div class="form-group">
+        <input type="text" id="habitInput" placeholder="Enter a new habit..." maxlength="100">
+        <select id="categorySelect">
+          <option value="health">🏃‍♂️ Health & Fitness</option>
+          <option value="learning">📚 Learning</option>
+          <option value="productivity">⚡ Productivity</option>
+          <option value="mindfulness">🧘‍♀️ Mindfulness</option>
+          <option value="social">👥 Social</option>
+          <option value="creative">🎨 Creative</option>
+          <option value="other">🔧 Other</option>
+        </select>
+        <button onclick="addHabit()">Add Habit</button>
+      </div>
+    </div>
 
-  <footer>
-    <p>&copy; 2025 Benjamin Marcano. All rights reserved.</p>
-  </footer>
+    <div class="habits-section">
+      <div class="section-title">📋 Your Habits</div>
+      <ul id="habitList" class="habits-list"></ul>
+      <div id="emptyState" class="empty-state">
+        <div style="font-size: 4rem; margin-bottom: 20px;">🎯</div>
+        <h3>No habits yet!</h3>
+        <p>Start building better habits by adding your first one above. Small consistent actions lead to big changes!</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let habits = JSON.parse(localStorage.getItem('habits')) || [];
+
+    function addHabit() {
+      const input = document.getElementById('habitInput');
+      const categorySelect = document.getElementById('categorySelect');
+      const text = input.value.trim();
+      if (!text) return;
+      const newHabit = { id: Date.now(), text, category: categorySelect.value, completed: false, completedDates: [], streak: 0 };
+      habits.push(newHabit);
+      localStorage.setItem('habits', JSON.stringify(habits));
+      input.value = '';
+      renderHabits();
+      updateStats();
+    }
+
+    function toggleHabit(button) {
+      const id = parseInt(button.dataset.habitId);
+      const habit = habits.find(h => h.id === id);
+      if (!habit) return;
+      const today = new Date().toDateString();
+      if (habit.completedDates.includes(today)) {
+        habit.completedDates = habit.completedDates.filter(d => d !== today);
+        habit.completed = false;
+      } else {
+        habit.completedDates.push(today);
+        habit.completed = true;
+      }
+      localStorage.setItem('habits', JSON.stringify(habits));
+      renderHabits();
+      updateStats();
+    }
+
+    function deleteHabit(button) {
+      const id = parseInt(button.dataset.habitId);
+      habits = habits.filter(h => h.id !== id);
+      localStorage.setItem('habits', JSON.stringify(habits));
+      renderHabits();
+      updateStats();
+    }
+
+    function renderHabits() {
+      const list = document.getElementById('habitList');
+      const empty = document.getElementById('emptyState');
+      if (habits.length === 0) { list.style.display = 'none'; empty.style.display = 'block'; return; }
+      empty.style.display = 'none'; list.style.display = 'block';
+      list.innerHTML = habits.map(h => `
+        <li class="habit-item ${h.completed ? 'completed' : ''}">
+          <div class="habit-content">
+            <span class="habit-text">${h.text}</span>
+            <span class="habit-category">${h.category}</span>
+          </div>
+          <div class="habit-actions">
+            <button class="complete-btn ${h.completed ? 'completed' : ''}" data-habit-id="${h.id}" onclick="toggleHabit(this)">
+              ${h.completed ? '✅ Done' : 'Mark Done'}
+            </button>
+            <button class="delete-btn" data-habit-id="${h.id}" onclick="deleteHabit(this)">🗑️</button>
+          </div>
+        </li>`).join('');
+    }
+
+    function updateStats() {
+      const total = habits.length;
+      const today = new Date().toDateString();
+      const completedToday = habits.filter(h => h.completedDates.includes(today)).length;
+      document.getElementById('totalHabits').textContent = total;
+      document.getElementById('completedToday').textContent = completedToday;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => { renderHabits(); updateStats(); });
+  </script>
 </body>
 </html>
